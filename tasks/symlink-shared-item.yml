@@ -1,4 +1,14 @@
 ---
+
+# Ensure symlinks target paths is absent
+# This was removed in 1.7.3 to improve speed but it introduced regressions in cases where
+# there are .gitkeep files in such folders (common practice in some PHP frameworks)
+- name: ANSISTRANO | Ensure shared paths targets are absent, default behaviour
+  file:
+    state: absent
+    path: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties }}"
+  when: symlink_properties.src is not defined and symlink_properties.dest is not defined
+
 # Symlinks shared paths and files
 - name: ANSISTRANO | Create softlinks for shared paths and files, default behaviour
   file:
@@ -15,6 +25,11 @@
        that:
          - symlink_properties.src is defined
          - symlink_properties.dest is defined
+
+   - name: ANSISTRANO | Ensure shared paths targets are absent, src and dest specified
+     file:
+       state: absent
+       path: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.src }}"
 
    - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified
      file:
