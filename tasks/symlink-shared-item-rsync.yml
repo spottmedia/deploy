@@ -10,10 +10,12 @@
 # Symlinks shared paths and files
 - name: ANSISTRANO | Block for handling the .rsync-filter file when extended definitions are given
   block:
+
+
    - assert:
-     that:
-       - symlink_properties.src is defined
-       - symlink_properties.dest is defined
+       that:
+         - symlink_properties.src is defined
+         - symlink_properties.dest is defined
 
     # Setup .rsync-filter file for current rsync deployment (exclude shared folders for rsync current deployment)
    - name: ANSISTRANO | Setup .rsync-filter with shared-folders

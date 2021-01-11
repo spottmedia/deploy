@@ -10,10 +10,11 @@
 # Symlinks shared paths and files
 - name: ANSISTRANO | Block for handling the symlink's when extended definitions are given
   block:
+
    - assert:
-     that:
-       - symlink_properties.src is defined
-       - symlink_properties.dest is defined
+       that:
+         - symlink_properties.src is defined
+         - symlink_properties.dest is defined
 
    - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified
      file:
