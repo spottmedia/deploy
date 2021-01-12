@@ -32,12 +32,13 @@
    - name: ANSISTRANO | Ensure shared paths targets are absent, src and dest specified
      file:
        state: absent
-       path: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.src }}"
+       path: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
 
    - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified
      file:
        state: link
-       src: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.src }}"
-       path: "{{ symlink_properties.dest | regex_replace('[^\\/]+', '..') }}/../shared/{{ symlink_properties.dest }}"
+       src: "{{ symlink_properties.dest | regex_replace('[^\\/]+', '..') }}/../shared/{{ symlink_properties.src }}"
+       dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
+
 
   when: symlink_properties.src is defined or symlink_properties.dest is defined
