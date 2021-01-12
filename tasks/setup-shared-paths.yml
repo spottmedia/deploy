@@ -21,6 +21,6 @@
    - name: ANSISTRANO | Ensure shared paths exists, dest and src provided
      file:
        state: directory
-       path: "{{ ansistrano_shared_path }}/{{ symlink_properties.src }}"
+       path: "{{ ansistrano_shared_path }}/{{ symlink_properties.dest }}"
 
   when: symlink_properties.src is defined or symlink_properties.dest is defined
