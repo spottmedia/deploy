@@ -3,8 +3,13 @@
 - include: symlink-shared-item.yml
   vars:
     symlink_properties: "{{ item }}"
-  with_flattened:
+  with_items:
     - "{{ ansistrano_shared_paths }}"
+
+- include: symlink-shared-item.yml
+  vars:
+    symlink_properties: "{{ item }}"
+  with_items:
     - "{{ ansistrano_shared_files }}"
 
 # Remove previous .rsync-filter file (rsync current deployment)
@@ -16,7 +21,13 @@
 
 - include: symlink-shared-item-rsync.yml
   vars:
-    symlink_properties: "{{ item }}"
-  with_flattened:
+      symlink_properties: "{{ item }}"
+  with_items:
     - "{{ ansistrano_shared_paths }}"
+
+- include: symlink-shared-item-rsync.yml
+  vars:
+      symlink_properties: "{{ item }}"
+  with_items:
     - "{{ ansistrano_shared_files }}"
+
