@@ -1,8 +1,8 @@
 ---
 
 - debug:
-  var: symlink_properties
-  
+    var: symlink_properties
+
 # Ensure symlinks target paths is absent
 # This was removed in 1.7.3 to improve speed but it introduced regressions in cases where
 # there are .gitkeep files in such folders (common practice in some PHP frameworks)
