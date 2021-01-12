@@ -15,15 +15,13 @@
     state: directory
     path: "{{ ansistrano_shared_path }}"
 
-# Ensure shared path exists
-- name: ANSISTRANO | Ensure shared paths exists
-  file:
-    state: directory
-    path: "{{ ansistrano_shared_path }}/{{ item }}"
-  with_items: "{{ ansistrano_shared_paths }}"
+- include: setup-shared-paths.yml
+  vars:
+    symlink_properties: "{{ item }}"
+  with_items:
+    - "{{ ansistrano_shared_paths }}"
   when: ansistrano_ensure_shared_paths_exist|bool
 
-# Ensure basedir shared files exists
 - name: ANSISTRANO | Ensure basedir shared files exists
   file:
     state: directory
