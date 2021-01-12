@@ -1,8 +1,5 @@
 ---
 
-- fail:
-    msg: test
-    
 - include: symlink-shared-item.yml
   vars:
     symlink_properties: "{{ item }}"
