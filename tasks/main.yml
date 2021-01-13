@@ -1,23 +1,33 @@
 ---
-- include_tasks: "{{ ansistrano_before_setup_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_before_setup_tasks_file }}"
+  when: ansistrano_before_setup_tasks_file is defined
 
 - include_tasks: setup.yml
 
-- include_tasks: "{{ ansistrano_after_setup_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_after_setup_tasks_file  }}"
+  when: ansistrano_after_setup_tasks_file is defined
 
-- include_tasks: "{{ ansistrano_before_update_code_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_before_update_code_tasks_file }}"
+  when: ansistrano_before_update_code_tasks_file is defined
 
 - include_tasks: update-code.yml
 
-- include_tasks: "{{ ansistrano_after_update_code_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_after_update_code_tasks_file }}"
+  when: ansistrano_after_update_code_tasks_file is defined
 
-- include_tasks: "{{ ansistrano_before_symlink_shared_tasks_file | default('empty.yml') }}"
+- include_role: "{{ ansistrano_after_update_code_role}}"
+  when: ansistrano_after_update_code_role is defined
+
+- include_tasks: "{{ ansistrano_before_symlink_shared_tasks_file}}"
+  when: ansistrano_before_symlink_shared_tasks_file is defined
 
 - include_tasks: symlink-shared.yml
 
-- include_tasks: "{{ ansistrano_after_symlink_shared_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_after_symlink_shared_tasks_file}}"
+  when: ansistrano_after_symlink_shared_tasks_file is defined
 
-- include_tasks: "{{ ansistrano_before_symlink_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_before_symlink_tasks_file }}"
+  when: ansistrano_before_symlink_tasks_file is defined
 
 - include_tasks: symlink.yml
   when: ansistrano_current_via == "symlink"
@@ -25,13 +35,16 @@
 - include_tasks: rsync-deploy.yml
   when: ansistrano_current_via == "rsync"
 
-- include_tasks: "{{ ansistrano_after_symlink_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_after_symlink_tasks_file }}"
+  when: ansistrano_after_symlink_tasks_file is defined
 
-- include_tasks: "{{ ansistrano_before_cleanup_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_before_cleanup_tasks_file }}"
+  when: ansistrano_before_cleanup_tasks_file is defined
 
 - include_tasks: cleanup.yml
 
-- include_tasks: "{{ ansistrano_after_cleanup_tasks_file | default('empty.yml') }}"
+- include_tasks: "{{ ansistrano_after_cleanup_tasks_file }}"
+  when: ansistrano_after_cleanup_tasks_file is defined
 
 - include_tasks: anon-stats.yml
 
