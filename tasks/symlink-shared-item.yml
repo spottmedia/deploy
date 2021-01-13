@@ -17,7 +17,7 @@
   file:
     state: link
     path: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties }}"
-    src: "{{ symlink_properties | regex_replace('[^\\/]+', '..') }}/../shared/{{ symlink_properties }}"
+    src: "{{ ansistrano_shared_path }}/{{ symlink_properties }}"
   when: symlink_properties.src is not defined and symlink_properties.dest is not defined
 
 # Symlinks shared paths and files
@@ -37,7 +37,7 @@
    - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified
      file:
        state: link
-       src: "{{ ansistrano_release_path.stdout }}/shared/{{ symlink_properties.src }}"
+       src: "{{ ansistrano_shared_path }}/{{ symlink_properties.src }}"
        dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
      when: symlink_properties.force is not defined or not symlink_properties.force|bool
 
