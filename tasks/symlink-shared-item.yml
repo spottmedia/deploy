@@ -41,12 +41,12 @@
        dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
      when: symlink_properties.force is not defined or not symlink_properties.force|bool
 
-   - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified
+   - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified, forced
      file:
        state: link
        src: "{{ symlink_properties.dest | regex_replace('[^\\/]+', '..') }}/../shared/{{ symlink_properties.src }}"
        dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
        force: true
-    when: symlink_properties.force is defined and symlink_properties.force|bool
+     when: symlink_properties.force is defined and symlink_properties.force|bool
 
   when: symlink_properties.src is defined or symlink_properties.dest is defined
