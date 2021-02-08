@@ -47,6 +47,10 @@
 - include_tasks: "{{ ansistrano_after_cleanup_tasks_file }}"
   when: ansistrano_after_cleanup_tasks_file is defined
 
+- include_role:
+    name: "{{ ansistrano_after_cleanup_role }}"
+  when: ansistrano_after_cleanup_role is defined
+
 - include_tasks: anon-stats.yml
 
 - include_tasks: funding.yml
