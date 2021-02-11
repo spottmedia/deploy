@@ -10,6 +10,10 @@
 - include_tasks: "{{ ansistrano_before_update_code_tasks_file }}"
   when: ansistrano_before_update_code_tasks_file is defined
 
+- include_role:
+    name: "{{ ansistrano_before_update_code_role }}"
+  when: ansistrano_before_update_code_role is defined
+
 - include_tasks: update-code.yml
 
 - include_tasks: "{{ ansistrano_after_update_code_tasks_file }}"
