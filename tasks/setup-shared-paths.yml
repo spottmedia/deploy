@@ -4,6 +4,8 @@
 - name: ANSISTRANO | Ensure shared paths exists, default behaviour
   file:
     state: directory
+    owner: www-data
+    group: www-data
     path: "{{ ansistrano_shared_path }}/{{ symlink_properties }}"
   when:
     - symlink_properties.src is not defined
@@ -21,6 +23,8 @@
    - name: ANSISTRANO | Ensure shared paths exists, dest and src provided
      file:
        state: directory
+       owner: www-data
+       group: www-data
        path: "{{ ansistrano_shared_path }}/{{ symlink_properties.src }}"
 
   when: symlink_properties.src is defined or symlink_properties.dest is defined

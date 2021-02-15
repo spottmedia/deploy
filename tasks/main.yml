@@ -34,6 +34,10 @@
 - include_tasks: "{{ ansistrano_before_symlink_tasks_file }}"
   when: ansistrano_before_symlink_tasks_file is defined
 
+- include_role:
+    name: "{{ ansistrano_before_symlink_role }}"
+  when: ansistrano_before_symlink_role is defined
+
 - include_tasks: symlink.yml
   when: ansistrano_current_via == "symlink"
 
