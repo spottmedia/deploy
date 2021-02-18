@@ -2,6 +2,10 @@
 - include_tasks: "{{ ansistrano_before_setup_tasks_file }}"
   when: ansistrano_before_setup_tasks_file is defined
 
+- include_role:
+    name: "{{ ansistrano_before_setup_role }}"
+  when: ansistrano_before_setup_role is defined
+
 - include_tasks: setup.yml
 
 - include_tasks: "{{ ansistrano_after_setup_tasks_file  }}"
