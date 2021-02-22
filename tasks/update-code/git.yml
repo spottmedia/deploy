@@ -56,6 +56,11 @@
   set_fact:
     ansistrano_git_real_repo_tree: "{{ ansistrano_git_repo_tree | trim | regex_replace('^[/]*', '') | regex_replace('[/]*$', '') }}"
 
+- name: debug git
+  debug:
+    var: ansistrano_git_real_repo_tree
+  changed_when: true
+  
 - name: ANSISTRANO | GIT | Create release folder
   file:
     state: directory
