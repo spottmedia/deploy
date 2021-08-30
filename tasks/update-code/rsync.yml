@@ -22,8 +22,11 @@
     state: directory
     mode: '0755'
 
+- name: ANSISTRANO | RSYNC | Kill any background cp if it's here
+  command: pkill cp
+
 - name: ANSISTRANO | RSYNC | Deploy existing code to servers
-  shell: tar cf - . | (cd {{ ansistrano_release_path.stdout }}/ && tar xvf -)
-  args:
-    chdir: "{{ ansistrano_shared_rsync_copy_path.stdout }}"
-  # command: cp -a {{ ansistrano_shared_rsync_copy_path.stdout }} {{ ansistrano_release_path.stdout }}
+  command: mv {{ ansistrano_shared_rsync_copy_path.stdout }} {{ ansistrano_release_path.stdout }}
+
+- name: ANSISTRANO | RSYNC | Background-fetch back the files to speed up future releases
+  shell: nohup cp -a {{ ansistrano_release_path.stdout }} {{ ansistrano_shared_rsync_copy_path.stdout }} &
