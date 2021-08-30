@@ -16,11 +16,11 @@
     rsync_opts: "{{ ansistrano_rsync_extra_params | default(omit) }}"
     rsync_path: "{{ ansistrano_rsync_path | default(omit) }}"
 
-- name: "ANSISTRANO | RSYNC | Create the {{ ansistrano_release_path.stdout }} directory if it does not exist"
-  ansible.builtin.file:
-    path: "{{ ansistrano_release_path.stdout }}"
-    state: directory
-    mode: '0755'
+#- name: "ANSISTRANO | RSYNC | Create the {{ ansistrano_release_path.stdout }} directory if it does not exist"
+#  ansible.builtin.file:
+#    path: "{{ ansistrano_release_path.stdout }}"
+#    state: directory
+#    mode: '0755'
 
 - name: ANSISTRANO | RSYNC | Kill any background cp if it's here
   command: pkill cp
