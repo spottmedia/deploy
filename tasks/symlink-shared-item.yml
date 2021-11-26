@@ -29,16 +29,25 @@
          - symlink_properties.src is defined
          - symlink_properties.dest is defined
 
+# tackle absolute symlinks gently
+   - set_fact:
+      - symlink_dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
+     when: symlink_properties.dest[0] != "/"
+
+   - set_fact:
+      - symlink_dest: "{{ symlink_properties.dest }}"
+     when: symlink_properties.dest[0] == "/"
+
    - name: ANSISTRANO | Ensure shared paths targets are absent, src and dest specified
      file:
        state: absent
-       path: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
+       path: "{{ symlink_dest }}"
 
    - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified
      file:
        state: link
        src: "{{ ansistrano_shared_path }}/{{ symlink_properties.src }}"
-       dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
+       dest: "{{ symlink_dest }}"
      when: symlink_properties.force is not defined or not symlink_properties.force|bool
 
 #   - name: ANSISTRANO | Create softlinks for shared paths and files, src and dest specified, forced
