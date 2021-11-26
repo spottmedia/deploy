@@ -31,11 +31,11 @@
 
 # tackle absolute symlinks gently
    - set_fact:
-      - symlink_dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
+      symlink_dest: "{{ ansistrano_release_path.stdout }}/{{ symlink_properties.dest }}"
      when: symlink_properties.dest[0] != "/"
 
    - set_fact:
-      - symlink_dest: "{{ symlink_properties.dest }}"
+      symlink_dest: "{{ symlink_properties.dest }}"
      when: symlink_properties.dest[0] == "/"
 
    - name: ANSISTRANO | Ensure shared paths targets are absent, src and dest specified
