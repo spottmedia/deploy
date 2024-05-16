@@ -40,6 +40,18 @@
 - include_tasks: "{{ ansistrano_after_symlink_shared_tasks_file }}"
   when: ansistrano_after_symlink_shared_tasks_file is defined
 
+- include_tasks: "{{ ansistrano_before_symlink_tasks_file }}"
+  when: ansistrano_before_symlink_tasks_file is defined
+
+- include_role:
+    name: "{{ ansistrano_before_symlink_role }}"
+  when: ansistrano_before_symlink_role is defined
+
+- include_role:
+    name: "{{ item }}"
+  loop: "{{ ansistrano_before_symlink_roles }}"
+  when: ansistrano_before_symlink_roles is defined
+
 - include_tasks: "{{ ansistrano_before_cleanup_tasks_file }}"
   when: ansistrano_before_cleanup_tasks_file is defined
 
@@ -56,18 +68,6 @@
     name: "{{ item }}"
   loop: "{{ ansistrano_after_cleanup_roles }}"
   when: ansistrano_after_cleanup_roles is defined
-
-- include_tasks: "{{ ansistrano_before_symlink_tasks_file }}"
-  when: ansistrano_before_symlink_tasks_file is defined
-
-- include_role:
-    name: "{{ ansistrano_before_symlink_role }}"
-  when: ansistrano_before_symlink_role is defined
-
-- include_role:
-    name: "{{ item }}"
-  loop: "{{ ansistrano_before_symlink_roles }}"
-  when: ansistrano_before_symlink_roles is defined
 
 - include_tasks: symlink.yml
   when: ansistrano_current_via == "symlink"
