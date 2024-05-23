@@ -6,11 +6,11 @@
     path: "{{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}"
   register: stat_current_dir
 
-# - name: ANSISTRANO | Remove current folder if it's a directory
-#   file:
-#     state: absent
-#     path: "{{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}"
-#   when: stat_current_dir.stat.isdir is defined and stat_current_dir.stat.isdir
+- name: ANSISTRANO | Remove current folder if it's a directory
+  file:
+    state: absent
+    path: "{{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}"
+  when: stat_current_dir.stat.isdir is defined and stat_current_dir.stat.isdir
 
 # # Performs symlink exchange
 # - name: ANSISTRANO | Change softlink to new release
@@ -19,10 +19,10 @@
 #     path: "{{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}"
 #     src: "./{{ ansistrano_version_dir }}/{{ ansistrano_release_version }}"
 
-- name: ANSISTRANO | Remove current folder if it's a directory
-  command: rm -rf {{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}
-  when: stat_current_dir.stat.isdir is defined and stat_current_dir.stat.isdir
+# - name: ANSISTRANO | Remove current folder if it's a directory
+#   command: rm -rf {{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}
+#   when: stat_current_dir.stat.isdir is defined and stat_current_dir.stat.isdir
 
 # Performs symlink exchange
 - name: ANSISTRANO | Change softlink to new release
-  command: ln -s ./{{ ansistrano_version_dir }}/{{ ansistrano_release_version }} {{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}
+  command: ln -nsf ./{{ ansistrano_version_dir }}/{{ ansistrano_release_version }} {{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}
