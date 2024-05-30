@@ -55,6 +55,7 @@
 - include_tasks: "{{ ansistrano_before_cleanup_tasks_file }}"
   when: ansistrano_before_cleanup_tasks_file is defined
 
+# Works fine until we keep save version big enough (at least 3)
 - include_tasks: cleanup.yml
 
 - include_tasks: "{{ ansistrano_after_cleanup_tasks_file }}"
