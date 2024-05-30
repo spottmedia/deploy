@@ -18,3 +18,8 @@
     state: link
     path: "{{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}"
     src: "./{{ ansistrano_version_dir }}/{{ ansistrano_release_version }}"
+
+# Keeping for ref
+# Performs symlink exchange
+# - name: ANSISTRANO | Change softlink to new release
+#   command: ln -nsf ./{{ ansistrano_version_dir }}/{{ ansistrano_release_version }} {{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}
