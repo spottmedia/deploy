@@ -70,6 +70,7 @@
   loop: "{{ ansistrano_after_cleanup_roles }}"
   when: ansistrano_after_cleanup_roles is defined
 
+# Keeping for ref
 # - include_tasks: symlink.yml
 #   when: ansistrano_current_via == "symlink"
 
